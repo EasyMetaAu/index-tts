@@ -4,6 +4,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
 # HuggingFace 镜像（解决中国大陆访问超时问题）
 ENV HF_ENDPOINT=https://hf-mirror.com
+# HuggingFace 下载进度条
+ENV HF_HUB_DISABLE_PROGRESS_BARS=0
 
 # 安装系统依赖
 RUN apt-get update && apt-get install -y \
