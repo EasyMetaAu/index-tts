@@ -17,13 +17,13 @@ echo "Checking HuggingFace models..."
 # 1. facebook/w2v-bert-2.0 (SeamlessM4TFeatureExtractor)
 if [ ! -d "$HF_HUB_CACHE/models--facebook--w2v-bert-2.0" ]; then
     echo "Downloading facebook/w2v-bert-2.0..."
-    huggingface-cli download facebook/w2v-bert-2.0 --cache-dir "$HF_HUB_CACHE" || echo "Warning: Failed to download w2v-bert-2.0, will retry at runtime"
+    uv run huggingface-cli download facebook/w2v-bert-2.0 --cache-dir "$HF_HUB_CACHE" || echo "Warning: Failed to download w2v-bert-2.0, will retry at runtime"
 fi
 
 # 2. amphion/MaskGCT (semantic_codec)
 if [ ! -d "$HF_HUB_CACHE/models--amphion--MaskGCT" ]; then
     echo "Downloading amphion/MaskGCT semantic_codec..."
-    huggingface-cli download amphion/MaskGCT semantic_codec/model.safetensors --cache-dir "$HF_HUB_CACHE" || echo "Warning: Failed to download MaskGCT, will retry at runtime"
+    uv run huggingface-cli download amphion/MaskGCT semantic_codec/model.safetensors --cache-dir "$HF_HUB_CACHE" || echo "Warning: Failed to download MaskGCT, will retry at runtime"
 fi
 
 echo "HuggingFace models check complete."
