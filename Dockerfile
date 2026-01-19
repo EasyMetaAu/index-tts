@@ -23,7 +23,7 @@ ENV PATH="/root/.local/bin:$PATH"
 WORKDIR /app
 
 # 复制依赖文件
-COPY pyproject.toml uv.lock ./
+COPY pyproject.toml uv.lock README.md ./
 
 # 复制源代码
 COPY indextts/ ./indextts/

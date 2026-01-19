@@ -26,7 +26,11 @@ COPY indextts/ ./indextts/
 COPY webui.py ./
 COPY tools/ ./tools/
 
-# 安装依赖（跳过 deepspeed，CPU 不需要）
+# 创建虚拟环境并安装 CPU 版本的 PyTorch（绕过 pyproject.toml 中的 CUDA 源配置）
+RUN uv venv && \
+    uv pip install torch==2.8.0 torchaudio==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+
+# 安装其他依赖（跳过 deepspeed，CPU 不需要；torch 已安装会被跳过）
 RUN uv sync --extra webui
 
 # 安装 modelscope CLI（用于启动时下载模型）
