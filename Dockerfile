@@ -2,6 +2,8 @@ FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
+# HuggingFace 镜像（解决中国大陆访问超时问题）
+ENV HF_ENDPOINT=https://hf-mirror.com
 
 # 安装系统依赖
 RUN apt-get update && apt-get install -y \
@@ -29,6 +31,7 @@ COPY pyproject.toml uv.lock README.md ./
 COPY indextts/ ./indextts/
 COPY webui.py ./
 COPY tools/ ./tools/
+COPY examples/ ./examples/
 
 # 安装依赖
 # DS_BUILD_OPS=0: 跳过 deepspeed CUDA ops 编译（runtime 镜像无 nvcc）
