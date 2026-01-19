@@ -29,14 +29,17 @@ COPY tools/ ./tools/
 # 安装依赖（跳过 deepspeed，CPU 不需要）
 RUN uv sync --extra webui
 
-# 下载模型（使用 ModelScope）
-RUN uv tool install modelscope && \
-    modelscope download --model IndexTeam/IndexTTS-2 --local_dir ./checkpoints
+# 安装 modelscope CLI（用于启动时下载模型）
+RUN uv tool install modelscope
+
+# 复制启动脚本
+COPY docker-entrypoint.sh /app/
+RUN chmod +x /app/docker-entrypoint.sh
 
 EXPOSE 7860
 
 HEALTHCHECK --interval=30s --timeout=10s \
     CMD curl -f http://localhost:7860/ || exit 1
 
-ENTRYPOINT ["uv", "run", "webui.py"]
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["--host", "0.0.0.0", "--port", "7860"]
