@@ -1,0 +1,12 @@
+services:
+  indextts:
+    build:
+      context: .
+      dockerfile: Dockerfile.cpu
+    platform: linux/amd64
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./checkpoints:/app/checkpoints
+      - ./outputs:/app/outputs
+    restart: unless-stopped

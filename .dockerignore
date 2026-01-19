@@ -1,0 +1,12 @@
+.git/
+.github/
+__pycache__/
+*.pyc
+outputs/
+checkpoints/
+.venv/
+*.md
+!README.md
+tests/
+docs/
+archive/
