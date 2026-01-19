@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     git \
     git-lfs \
     ffmpeg \
+    libsndfile1 \
     build-essential \
     curl \
     && rm -rf /var/lib/apt/lists/* \
