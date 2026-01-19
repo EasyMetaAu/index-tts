@@ -31,6 +31,8 @@ COPY webui.py ./
 COPY tools/ ./tools/
 
 # 安装依赖
+# DS_BUILD_OPS=0: 跳过 deepspeed CUDA ops 编译（runtime 镜像无 nvcc）
+ENV DS_BUILD_OPS=0
 RUN uv sync --all-extras
 
 # 安装 modelscope CLI（用于启动时下载模型）
