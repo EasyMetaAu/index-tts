@@ -42,10 +42,10 @@ RUN uv tool install modelscope
 COPY docker-entrypoint.sh /app/
 RUN chmod +x /app/docker-entrypoint.sh
 
-EXPOSE 7860
+EXPOSE 7861
 
 HEALTHCHECK --interval=30s --timeout=10s \
-    CMD curl -f http://localhost:7860/ || exit 1
+    CMD curl -f http://localhost:7861/ || exit 1
 
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
-CMD ["--host", "0.0.0.0", "--port", "7860", "--fp16"]
+CMD ["--host", "0.0.0.0", "--port", "7861", "--fp16"]
