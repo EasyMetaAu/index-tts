@@ -32,7 +32,7 @@ COPY pyproject.toml uv.lock README.md ./
 
 # 复制源代码
 COPY indextts/ ./indextts/
-COPY webui.py ./
+COPY webui.py api.py ./
 COPY tools/ ./tools/
 COPY examples/ ./examples/
 
@@ -51,7 +51,7 @@ RUN chmod +x /app/docker-entrypoint.sh
 EXPOSE 7861
 
 HEALTHCHECK --interval=30s --timeout=10s \
-    CMD curl -f http://localhost:7861/ || exit 1
+    CMD curl -f http://localhost:7861/api/v1/health || exit 1
 
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["--host", "0.0.0.0", "--port", "7861", "--fp16"]

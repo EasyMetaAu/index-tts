@@ -28,5 +28,5 @@ fi
 
 echo "HuggingFace models check complete."
 
-# 执行原始命令
-exec uv run webui.py "$@"
+# 执行原始命令（默认启用 API）
+exec uv run webui.py --enable_api "$@"

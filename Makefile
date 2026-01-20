@@ -1,4 +1,4 @@
-.PHONY: help up up-cpu down restart restart-cpu logs build build-cpu ps shell clean
+.PHONY: help up up-cpu down down-cpu restart restart-cpu logs build build-cpu ps shell clean
 
 help:
 	@echo "IndexTTS2 Docker 命令:"
@@ -23,11 +23,12 @@ up-cpu:
 down:
 	docker compose down
 
-restart:
-	docker compose restart
+down-cpu:
+	docker compose -f docker-compose.cpu.yml down
 
-restart-cpu:
-	docker compose -f docker-compose.cpu.yml restart
+restart: down build up
+
+restart-cpu: down-cpu build-cpu up-cpu
 
 logs:
 	docker compose logs -f

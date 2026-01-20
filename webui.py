@@ -29,6 +29,7 @@ parser.add_argument("--fp16", action="store_true", default=False, help="Use FP16
 parser.add_argument("--deepspeed", action="store_true", default=False, help="Use DeepSpeed to accelerate if available")
 parser.add_argument("--cuda_kernel", action="store_true", default=False, help="Use CUDA kernel for inference if available")
 parser.add_argument("--gui_seg_tokens", type=int, default=120, help="GUI: Max tokens per generation segment")
+parser.add_argument("--enable_api", action="store_true", default=False, help="Enable REST API alongside WebUI")
 cmd_args = parser.parse_args()
 
 if not os.path.exists(cmd_args.model_dir):
@@ -554,4 +555,17 @@ with gr.Blocks(title="IndexTTS Demo") as demo:
 
 if __name__ == "__main__":
     demo.queue(20)
-    demo.launch(server_name=cmd_args.host, server_port=cmd_args.port)
+
+    if cmd_args.enable_api:
+        # Mount Gradio app on FastAPI for combined WebUI + API
+        import uvicorn
+        from indextts.api import create_api_app
+
+        api_app = create_api_app(tts)
+        app = gr.mount_gradio_app(api_app, demo, path="/")
+
+        print(f">> Starting combined WebUI + API server on http://{cmd_args.host}:{cmd_args.port}")
+        print(f">> API endpoints available at http://{cmd_args.host}:{cmd_args.port}/api/v1/")
+        uvicorn.run(app, host=cmd_args.host, port=cmd_args.port)
+    else:
+        demo.launch(server_name=cmd_args.host, server_port=cmd_args.port)
