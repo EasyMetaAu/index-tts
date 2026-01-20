@@ -34,7 +34,6 @@ COPY pyproject.toml uv.lock README.md ./
 COPY indextts/ ./indextts/
 COPY webui.py api.py ./
 COPY tools/ ./tools/
-COPY examples/ ./examples/
 
 # 安装依赖
 # DS_BUILD_OPS=0: 跳过 deepspeed CUDA ops 编译（runtime 镜像无 nvcc）

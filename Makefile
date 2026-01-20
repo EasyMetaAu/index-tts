@@ -45,12 +45,14 @@ down:
 down-cpu:
 	docker compose -f docker-compose.cpu.yml down
 
-# 重启（不重新构建）
+# 重启（不重新构建，会重新读取配置）
 restart:
-	docker compose restart
+	docker compose down
+	docker compose up -d
 
 restart-cpu:
-	docker compose -f docker-compose.cpu.yml restart
+	docker compose -f docker-compose.cpu.yml down
+	docker compose -f docker-compose.cpu.yml up -d
 
 # 构建
 build:

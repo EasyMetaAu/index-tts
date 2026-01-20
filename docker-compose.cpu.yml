@@ -12,4 +12,5 @@ services:
       - ./indextts:/app/indextts
       - ./webui.py:/app/webui.py
       - ./api.py:/app/api.py
+      - ./examples:/app/examples
     restart: unless-stopped
