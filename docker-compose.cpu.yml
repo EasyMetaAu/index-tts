@@ -9,4 +9,7 @@ services:
     volumes:
       - ./checkpoints:/app/checkpoints
       - ./outputs:/app/outputs
+      - ./indextts:/app/indextts
+      - ./webui.py:/app/webui.py
+      - ./api.py:/app/api.py
     restart: unless-stopped
