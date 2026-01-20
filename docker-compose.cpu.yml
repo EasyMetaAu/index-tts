@@ -6,6 +6,8 @@ services:
     platform: linux/amd64
     ports:
       - "7861:7861"
+    environment:
+      - WEBUI_LANG=zh_CN
     volumes:
       - ./checkpoints:/app/checkpoints
       - ./outputs:/app/outputs
